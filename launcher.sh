@@ -3,20 +3,20 @@
 #
 BROWSER_BIN="/usr/bin/brave"
 CHROMIX_TOO_BIN="$HOME/.nvm/versions/node/v16.17.0/bin/chromix-too"
-ROOT_BRAVE_PATH="$HOME/.config/BraveSoftware/Brave-Browser"
-BOOKMARKS="$ROOT_BRAVE_PATH/Default/Bookmarks"
+ROOT_BROWSER_PATH="$HOME/.config/BraveSoftware/Brave-Browser"
+BOOKMARKS="$ROOT_BROWSER_PATH/Default/Bookmarks"
 SEPARATOR="XXXXXXXXXXXXXXXXXXXX"
 
 # decide if the browser should be open in a new instance or not
 while getopts 'tw' OPTION; do
 	case "$OPTION" in
 	w)
-		BRAVE_ARGS="--new-window"
-		BRAVE_DISPLAY_TEXT="brave (window): "
+		BROWSER_ARGS="--new-window"
+		BROWSER_DISPLAY_TEXT="open in new (window): "
 		;;
 	t)
-		BRAVE_ARGS="--new-tab"
-		BRAVE_DISPLAY_TEXT="brave (tab): "
+		BROWSER_ARGS="--new-tab"
+		BROWSER_DISPLAY_TEXT="open in new (tab): "
 		;;
 	?)
 		echo "script usage: $(basename "$0") [-t] [-w]" >&2
@@ -45,7 +45,7 @@ read_bookmarks() {
 read_history() {
 	local HISTORY_DB SQL histlist
 
-	HISTORY_DB="$ROOT_BRAVE_PATH/Default/History"
+	HISTORY_DB="$ROOT_BROWSER_PATH/Default/History"
 
 	SQL="SELECT u.title, u.url FROM urls as u WHERE u.url LIKE 'https%' ORDER BY visit_count DESC;"
 	histlist=$(printf '%s\n' "$(sqlite3 "file:$HISTORY_DB?mode=ro&nolock=1" "$SQL")" |
@@ -55,7 +55,7 @@ read_history() {
 }
 
 launch_browser() {
-	"$BROWSER_BIN" "$BRAVE_ARGS" "$1"
+	"$BROWSER_BIN" "$BROWSER_ARGS" "$1"
 }
 
 # Run the functions in parallel using background processes and process substitution
@@ -80,10 +80,9 @@ choice=$(
 		"$SEPARATOR" \
 		"$HISTLIST" |
 		rofi -scroll-method 2 -normalize-match -matching normal -tokenize -dmenu -i -l 9 -p \
-			"$BRAVE_DISPLAY_TEXT"
+			"$BROWSER_DISPLAY_TEXT"
 )
 
-set -x
 if [[ "$choice" = "$SEPARATOR" ]]; then
 	launch_browser
 
@@ -147,4 +146,3 @@ elif [[ -n "$choice" ]]; then
 else
 	exit 0
 fi
-set +x
