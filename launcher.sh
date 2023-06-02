@@ -8,7 +8,7 @@ BOOKMARKS="$ROOT_BROWSER_PATH/Default/Bookmarks"
 SEPARATOR="XXXXXXXXXXXXXXXXXXXX"
 
 # decide if the browser should be open in a new instance or not
-while getopts 'tw' OPTION; do
+while getopts 'twh' OPTION; do
 	case "$OPTION" in
 	w)
 		BROWSER_ARGS="--new-window"
@@ -18,8 +18,36 @@ while getopts 'tw' OPTION; do
 		BROWSER_ARGS="--new-tab"
 		BROWSER_DISPLAY_TEXT="open in new (tab): "
 		;;
+	h)
+		echo "Script to quickly launch urls in a browser (please change all of the 
+    arguments at the top of the bash file before use)
+    -t: opens the url in a new tab in the existing window
+    -w: opens the url in a completely new window
+    -h: display this help prompt again and exit
+
+    **BANGS**
+    Scenario you want to search for min-max heap on wikipedia:
+
+    min-max heap !w
+
+    it will display the wikipedia page for min-max heap on the browser
+    **Bangs must be put at the end to work !**
+
+    There are some existing builtin search bangs:
+
+    !g:    google
+    !gt:   google translate
+    !yt:   youtube 
+    !aw:   archlinux wiki
+    !w:    wikipeadia
+    !so:   stack overflow
+    !mw:   merriam-webster
+    !gist: github gist
+    "
+		exit 1
+		;;
 	?)
-		echo "script usage: $(basename "$0") [-t] [-w]" >&2
+		echo "script usage: $(basename "$0") [-t] [-w] or [-h] for help" >&2
 		exit 1
 		;;
 	esac
@@ -94,9 +122,6 @@ elif [[ "$choice" =~ ^.+[[:space:]]{1,2}\![a-zA-Z]{1,2}$ ]]; then
 	!g)
 		launch_browser "https://google.com/search?hl=en&q=$SEARCH_QUERY"
 		;;
-	!ph)
-		launch_browser "https://www.phind.com/search?q=$SEARCH_QUERY&c=&source=searchbox&init=true"
-		;;
 	!gt)
 		launch_browser "https://translate.google.com/?sl=auto&tl=en&text=$SEARCH_QUERY &op=translate"
 		;;
@@ -109,9 +134,6 @@ elif [[ "$choice" =~ ^.+[[:space:]]{1,2}\![a-zA-Z]{1,2}$ ]]; then
 	!gh)
 		launch_browser "https://github.com/search?o=desc&q=$SEARCH_QUERY&s=stars"
 		;;
-	!de)
-		launch_browser "https://www.dict.cc/?s=$SEARCH_QUERY"
-		;;
 	!w)
 		launch_browser "https://en.wikipedia.org/w/index.php?search=$SEARCH_QUERY"
 		;;
@@ -120,9 +142,6 @@ elif [[ "$choice" =~ ^.+[[:space:]]{1,2}\![a-zA-Z]{1,2}$ ]]; then
 		;;
 	!mw)
 		launch_browser "https://www.merriam-webster.com/dictionary/$SEARCH_QUERY"
-		;;
-	!wn)
-		launch_browser "https://www.wordnik.com/words/$SEARCH_QUERY"
 		;;
 	!gist)
 		launch_browser "https://gist.github.com/search?q=$SEARCH_QUERY"
