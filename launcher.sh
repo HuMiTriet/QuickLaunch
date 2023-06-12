@@ -5,6 +5,7 @@ BROWSER_BIN="/usr/bin/brave"
 CHROMIX_TOO_BIN="$HOME/.nvm/versions/node/v16.17.0/bin/chromix-too"
 ROOT_BROWSER_PATH="$HOME/.config/BraveSoftware/Brave-Browser"
 BOOKMARKS="$ROOT_BROWSER_PATH/Default/Bookmarks"
+HISTORY_DB="$ROOT_BROWSER_PATH/Default/History"
 SEPARATOR="XXXXXXXXXXXXXXXXXXXX"
 
 # decide if the browser should be open in a new instance or not
@@ -71,9 +72,7 @@ read_bookmarks() {
 
 # Function to read history
 read_history() {
-	local HISTORY_DB SQL histlist
-
-	HISTORY_DB="$ROOT_BROWSER_PATH/Default/History"
+	local SQL histlist
 
 	SQL="SELECT u.title, u.url FROM urls as u WHERE u.url LIKE 'https%' ORDER BY visit_count DESC;"
 	histlist=$(printf '%s\n' "$(sqlite3 "file:$HISTORY_DB?mode=ro&nolock=1" "$SQL")" |
