@@ -46,7 +46,7 @@ jq
 Pacman -S jq
 ```
 
-#### MacOS
+#### macOS
 
 macOS's compatibility is still under development, so it does not work on it yet.
 
@@ -69,12 +69,11 @@ brew install jq
 sudo npm install -g chromix-too
 ```
 
-For more information please follow chromix-too original [github repo](https://github.com/smblott-github/chromix-too)
+For more information please follow chromix-too original [GitHub repo](https://github.com/smblott-github/chromix-too)
 
-Now chromix-too also need to have to have a chromium extension installed to work
+Now chromix-too also need to have a Chromium extension installed to work
 
-Clone the repository above, then find the folder extension. The extension is written in coffee script
-so we need to convert it to javascript first
+Clone the repository above, then find the folder extension. The extension is written in coffee script, so we need to convert it to javascript first
 
 To do this we need decaffinate:
 
@@ -95,7 +94,7 @@ Then go to your browser extension manager, by clicking manage extension
 Load unpack the folder extension after it has been converted to javascript, you 
 will need to be in developer mode for this.
 
-Finally you will need to run the chromix-too-server in the background to use
+Finally, you will need to run the chromix-too-server in the background to use
 the chromix-too client:
 
 For Unix-like OS
@@ -124,7 +123,7 @@ SEPARATOR="XXXXXXXXXXXXXXXXXXXX"
 
 <!-- ## Tutorials -->
 
-Type launcher.sh -h for all of the possible options with the script:
+Type launcher.sh -h for all the possible options with the script:
 
     -t: opens the url in a new tab in the existing window
     -w: opens the url in a completely new window
@@ -157,4 +156,4 @@ Existing tabs (always have an id number at the beginning)
 $SEPARATOR
 Bookmarks
 $SEPARATOR
-History, past searches (format: web name # url)
+History, past searches (format: web name # URL)
