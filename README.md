@@ -151,9 +151,9 @@ Type launcher.sh -h for all the possible options with the script:
 Once an input phrase has been provided the script will present the result in 
 three sections:
 
-$SEPARATOR
-Existing tabs (always have an id number at the beginning)
-$SEPARATOR
-Bookmarks
-$SEPARATOR
+SEPARATOR\
+Existing tabs (always have an id number at the beginning)\
+SEPARATOR\
+Bookmarks\
+SEPARATOR\
 History, past searches (format: web name # URL)
